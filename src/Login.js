@@ -26,15 +26,13 @@ class Login extends React.Component{
     }
     render(){
         if (this.state.redirect===true) return <Redirect push to={'/exam'}></Redirect>
-        return <Container fluid="sm" id="LoginPortal">
-
-          
+        return <Container fluid="sm" id="LoginPortal" >
             <Form>
                 <h4>MCQ Exam Portal</h4><br></br>
                 <Form.Group controlId="name">
                     <Form.Control type="email" placeholder="Enter name" />
                 </Form.Group>
-                <Button variant="primary" onClick={()=>this.login()}>Submit</Button>
+                <Button variant="primary" type="submit" onClick={()=>this.login()}>Submit</Button>
             </Form>
           </Container>
 
