@@ -5,7 +5,8 @@ https://master-linux-task.herokuapp.com/
 ### How To Run:
 <ol>
   <li> Clone this repository.</li>
-  <li> Open the terminal and change to the root of the repository.</li>
+  <li> Open bash terminal and change the directory to the root of the project.</li>
   <li> Run the command `npm install`.</li>
   <li> Run the command `npm run dev`.</li>
- </ol>
+</ol>
+<h4> Note: if you need to debug with redux devtools, you need to uncomment line 11 in store.js </h4>
