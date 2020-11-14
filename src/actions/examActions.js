@@ -1,4 +1,4 @@
-import {LOGIN,SOLVE,CHANGE_QUESTION,SUBMIT_EXAM,SHUFFLE_ARRAY} from './types'
+import {LOGIN,SOLVE,CHANGE_QUESTION,SUBMIT_EXAM} from './types'
 export const login =(name)=> dispatch=>{
     dispatch({
         type:LOGIN,
@@ -21,11 +21,6 @@ export const changeQuestion =(offset)=> dispatch=>{
 export const submit  =()=> dispatch=>{
     dispatch({
         type:SUBMIT_EXAM,
-    })
-}
-export const shuffle  =(questions)=> dispatch=>{
-    dispatch({
-        type:SHUFFLE_ARRAY,
     })
 }
 

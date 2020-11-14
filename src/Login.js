@@ -1,7 +1,10 @@
 import React from 'react';
 import {login} from './actions/examActions'
 import {connect } from 'react-redux'
-import { Redirect } from "react-router";
+import { Redirect } from "react-router"
+import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class Login extends React.Component{
     constructor(props){
@@ -12,17 +15,29 @@ class Login extends React.Component{
     }
     login(){
         let name=document.getElementById("name").value
-        this.props.login(name)
+        if(name===""){
+            alert("You must enter your name to start the exam.")
+            return
+        }
+        localStorage.setItem("name",name)
         this.setState({
             redirect:true
         })
     }
     render(){
         if (this.state.redirect===true) return <Redirect push to={'/exam'}></Redirect>
-        return <div className="Login">
-          <input id="name"type="text" placeholder="Name" />
-          <button onClick={()=>this.login()}>Submit</button>
-        </div>
+        return <Container fluid="sm" id="LoginPortal">
+
+          
+            <Form>
+                <h4>MCQ Exam Portal</h4><br></br>
+                <Form.Group controlId="name">
+                    <Form.Control type="email" placeholder="Enter name" />
+                </Form.Group>
+                <Button variant="primary" onClick={()=>this.login()}>Submit</Button>
+            </Form>
+          </Container>
+
     }
 }
 const mapStateToProps = state =>({

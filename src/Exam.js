@@ -1,8 +1,8 @@
 import React from 'react'
 import Question from './Question.js'
 import {connect } from 'react-redux'
-import {changeQuestion,submit,shuffle} from './actions/examActions'
-
+import {changeQuestion,submit} from './actions/examActions'
+import Button from 'react-bootstrap/Button'
 class Exam extends React.Component{
     constructor(props){
         super(props)
@@ -11,16 +11,11 @@ class Exam extends React.Component{
         }
     }
     componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         if(this.props.questions===undefined){
             if(nextProps.questions !==undefined){
                 this.questions= this.nextprops.questions
-                this.props.shuffle(this.shuffleArray(this.questions))
-                
-                this.setState({
-                    rerender:true
-                })
             }
-            
         }
         if(nextProps.showResults!==undefined){
             if(nextProps.showResults===true){
@@ -28,8 +23,8 @@ class Exam extends React.Component{
             }
         }
     }
-     shuffleArray(array) {
-         console.log("shuffle")
+    shuffleArray(array) {
+        console.log("shuffle")
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
@@ -61,12 +56,20 @@ class Exam extends React.Component{
             {this.props.showResults!==true?
             <div className="wrapper">
                 <Question data={this.props.questions[this.props.currentQuestion]}></Question>
-                 <button onClick={()=>this.changeQuestion(-1)} disabled={this.props.currentQuestion===0? true:false}>prev</button>
-                <button onClick={()=>this.changeQuestion(1)}disabled={this.props.currentQuestion===4}>next</button>
-                <br></br>
-                <button onClick={()=>{this.submit()}}>Submit</button>
+                <div className="examControls">
+                    <Button onClick={()=>this.changeQuestion(-1)} disabled={this.props.currentQuestion===0? true:false}>prev</Button>
+                    {this.props.currentQuestion===4 ?
+                    <Button onClick={()=>{this.submit()}} variant="success" >Submit</Button>
+                    :""
+                    }
+                    <Button onClick={()=>this.changeQuestion(1)}disabled={this.props.currentQuestion===4}>next</Button>
+                </div>
             </div>
-            :<div className="score">Hi {this.props.name}. You scored: {this.state.score}</div>
+            :<div className="score">
+                <h4>Hi {localStorage.getItem("name")}!</h4>
+                <h4> You scored: {this.state.score}</h4>
+                <a href="/exam"><Button variant="info">Retake Test</Button></a>
+            </div>
             }
         </div>
     }
@@ -75,7 +78,6 @@ const mapStateToProps = state =>({
     questions:state.exam.questions,
     currentQuestion:state.exam.currentQuestion,
     showResults:state.exam.showResults,
-    name:state.exam.name
 })
 export default connect(mapStateToProps,
-    {changeQuestion,submit,shuffle})(Exam); 
+    {changeQuestion,submit})(Exam); 
